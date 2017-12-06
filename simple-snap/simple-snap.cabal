@@ -1,0 +1,26 @@
+name:                simple-snap
+version:             0.1.0.0
+synopsis:            Short description of your package
+homepage:            https://github.com/githubuser/simple#readme
+license:             BSD3
+author:              Author name here
+maintainer:          example@example.com
+copyright:           2017 Author name here
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Simple.Snap
+  build-depends:       base >= 4.7 && < 5
+                     , simple
+                     , case-insensitive
+                     , snap
+                     , mtl
+                     , transformers
+                     , lifted-base
+                     , bytestring
+                     , exceptions
+
+  default-language:    Haskell2010

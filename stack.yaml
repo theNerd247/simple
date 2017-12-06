@@ -1,0 +1,12 @@
+resolver: lts-9.17
+
+packages:
+- simple
+- simple-aeson
+- simple-snap
+
+extra-deps:
+  - snap-1.0.0.2
+  - heist-1.0.1.1
+  - map-syntax-0.2.0.2
+  - xmlhtml-0.2.5.2
