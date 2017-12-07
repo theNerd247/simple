@@ -24,21 +24,6 @@ throwMaybe :: (Exception e, MonadThrow m) => e -> Maybe a -> m a
 throwMaybe _ (Just x) = return x
 throwMaybe e _ = throwM e
 
-fromHeader :: (HasApi m) => (ReqValue -> Maybe a) -> Key -> m a
-fromHeader p k = getHeader k >>= throwMaybe err . (>>= p)
-  where
-    err = HeaderError $ "Could not find value at header key: " ++ (show k) 
-
-fromParam :: (HasApi m) => (ReqValue -> Maybe a) -> Key -> m a
-fromParam p k = getParam k >>= throwMaybe err . (>>= p)
-  where
-    err = ParamError $ "Could not find value at param key: " ++ (show k)
-
-fromBody :: (HasApi m) => (ReqValue -> Maybe a) -> m a
-fromBody p = getBody >>= throwMaybe err . p
-  where
-    err = BodyError $ "Could not find value in body" 
-
 -- | Most web apis have the same form with some slight variation in between.
 -- This class unifies all of these interfaces to something...simple. When
 -- writing a web api we typically focus on 1 thing: processing the inputs. In C#

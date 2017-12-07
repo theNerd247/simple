@@ -1,16 +1,17 @@
 module Simple.Aeson where
 
 import Data.Aeson hiding (Error)
-import qualified Simple as S
+import Simple
+import qualified Simple.Default as S
 
-fromHeader :: (S.HasApi m, FromJSON a) => S.Key -> m a
+fromHeader :: (HasApi m, FromJSON a) => Key -> m a
 fromHeader = S.fromHeader decode
 
-fromParam :: (S.HasApi m, FromJSON a) => S.Key -> m a
+fromParam :: (HasApi m, FromJSON a) => Key -> m a
 fromParam = S.fromParam decode
 
-fromBody :: (S.HasApi m, FromJSON a) => m a
+fromBody :: (HasApi m, FromJSON a) => m a
 fromBody = S.fromBody decode
 
-runAesonApi :: (S.HasApi m, ToJSON x) => m x -> m ()
-runAesonApi = S.runApi (return . encode)
+runAesonApi :: (HasApi m, ToJSON x) => m x -> m ()
+runAesonApi = runApi (return . encode)

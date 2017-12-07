@@ -18,6 +18,7 @@ description:         Please see the README on Github at <https://github.com/gith
 library
   hs-source-dirs:      src
   exposed-modules:     Simple
+                     , Simple.Default
   build-depends:       base >= 4.7 && < 5
                      , mtl
                      , transformers
