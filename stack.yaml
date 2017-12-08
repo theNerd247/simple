@@ -4,6 +4,8 @@ packages:
 - simple
 - simple-aeson
 - simple-snap
+- simple-string
+- test-simple
 
 extra-deps:
   - snap-1.0.0.2

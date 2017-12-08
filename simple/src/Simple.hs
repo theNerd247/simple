@@ -22,7 +22,7 @@ type RespValue = B.ByteString
 
 throwMaybe :: (Exception e, MonadThrow m) => e -> Maybe a -> m a
 throwMaybe _ (Just x) = return x
-throwMaybe e _ = throwM e
+throwMaybe e Nothing = throwM e
 
 -- | Most web apis have the same form with some slight variation in between.
 -- This class unifies all of these interfaces to something...simple. When
