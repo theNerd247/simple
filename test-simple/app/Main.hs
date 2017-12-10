@@ -19,7 +19,7 @@ import Data.Data
 import qualified Data.Text as T
 
 data Filter = Filter
-  { name :: String
+  { name :: [String]
   } deriving (Show, Read, Ord, Eq, Data, Typeable, Generic)
 
 data App = App
@@ -32,10 +32,10 @@ appInit :: SnapletInit App App
 appInit = makeSnaplet "app" "foo snaplet" Nothing $ do
   addRoutes [("foo", someFoo)]
   return $ App 
-    { _x = Filter "" -- [] 0
+    { _x = Filter [] -- [] 0
     }
 
 someFoo :: Handler App App ()
-someFoo = runStringApi $ Filter <$> fromParam "foo" 
+someFoo = runStringApi $ Filter . fmap skipParse <$> fromParams ' ' "foo" 
 
 main = serveSnaplet defaultConfig appInit

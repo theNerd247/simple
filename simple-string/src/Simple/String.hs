@@ -5,7 +5,7 @@ module Simple.String where
 import Simple
 import Data.Data
 import Data.Monoid
-import Text.Read
+import Text.Read (readMaybe)
 import GHC.Generics
 import qualified Data.ByteString.Lazy.Char8 as B
 import qualified Simple.Default as S
@@ -20,7 +20,7 @@ instance Monoid SkipParse where
   (SkipParse a) `mappend` (SkipParse b) = SkipParse (a `mappend` b) 
 
 instance Read SkipParse where
-  readPrec = SkipParse <$> look
+  readsPrec _ s = [(SkipParse s, "")]
 
 decode :: (Read a) => B.ByteString -> Maybe a
 decode = readMaybe . B.unpack 
@@ -36,6 +36,12 @@ fromParam = S.fromParam decode
 
 fromBody :: (HasApi m, Read a) => m a
 fromBody = S.fromBody decode
+
+fromParams :: (HasApi m, Read a) => Char -> Key -> m [a]
+fromParams = S.fromParams decode
+
+fromHeaders :: (HasApi m, Read a) => Char -> Key -> m [a]
+fromHeaders = S.fromHeaders decode
 
 runStringApi :: (HasApi m, Show x) => m x -> m ()
 runStringApi = runApi (return . encode)
