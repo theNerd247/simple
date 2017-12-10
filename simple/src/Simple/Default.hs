@@ -20,10 +20,18 @@ fromBody p = getBody >>= throwMaybe err . p
     err = BodyError $ "Could not find value in body" 
 
 fromParams :: (HasApi m) => (ReqValue -> Maybe a) -> Char -> Key -> m [a]
-fromParams p d k = fromParam (asList d p) k
+fromParams p d k = getParam k >>= throwMaybe err . parse
+  where
+    parse Nothing = Just []
+    parse (Just v) = asList d p v
+    err = ParamError $ "Could not parse value at param key: " ++ (show k)
 
 fromHeaders :: (HasApi m) => (ReqValue -> Maybe a) -> Char -> Key -> m [a]
-fromHeaders p d k = fromHeader (asList d p) k
+fromHeaders p d k = getHeader k >>= throwMaybe err . parse
+  where
+    parse Nothing = Just []
+    parse (Just v) = asList d p v
+    err = HeaderError $ "Could not parse value at header key: " ++ (show k) 
 
 asList :: Char -> (ReqValue -> Maybe a) -> ReqValue -> Maybe [a]
 asList delim decoder = sequence . fmap decoder . B.split delim
