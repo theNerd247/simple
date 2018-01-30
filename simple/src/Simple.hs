@@ -54,10 +54,9 @@ class (MonadCatch m) => HasApi m where
   getHeader :: Key -> m (Maybe ReqValue)
   getParam :: Key -> m (Maybe ReqValue)
   sendResponse :: RespValue -> m ()
-  onError :: (Exception e) => e -> m ()
 
   withApi :: m RespValue -> m ()
-  withApi api = (api >>= sendResponse) `catchAll` onError
+  withApi api = (api >>= sendResponse) 
   
 runApi :: (HasApi m) => (x -> m RespValue) -> m x -> m ()
 runApi encoder api = withApi $ api >>= encoder

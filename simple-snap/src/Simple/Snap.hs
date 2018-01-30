@@ -30,13 +30,6 @@ sendResponseSnap x = do
     . Snap.setHeader "Content-Type" "application/json"
   Snap.writeLBS x
 
-onErrorSnap :: (Snap.MonadSnap m) => (Exception e) => e -> m ()
-onErrorSnap e = do
-  Snap.modifyResponse $
-    Snap.setResponseCode 500
-    . Snap.setHeader "Content-Type" "application/json"
-  Snap.writeLBS $ "{errorMsg: " `mappend` (B.fromStrict . Char8.pack $ displayException e) `mappend` "}"
-
 instance MonadThrow (Snap.Handler b v) where
   throwM = L.throwIO
 
@@ -48,4 +41,3 @@ instance HasApi (Snap.Handler b v) where
   getHeader = getHeaderSnap
   getParam = getParamSnap
   sendResponse = sendResponseSnap
-  onError = onErrorSnap
