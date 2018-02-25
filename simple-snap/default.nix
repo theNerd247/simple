@@ -1,12 +1,12 @@
 { mkDerivation, base, bytestring, case-insensitive, exceptions
-, lifted-base, mtl, simple, snap, stdenv, transformers
+, lifted-base, mtl, simple-core, snap, stdenv, transformers
 }:
 mkDerivation {
   pname = "simple-snap";
   version = "0.1.0.0";
   src = ./.;
   libraryHaskellDepends = [
-    base bytestring case-insensitive exceptions lifted-base mtl simple
+    base bytestring case-insensitive exceptions lifted-base mtl simple-core
     snap transformers
   ];
   homepage = "https://github.com/githubuser/simple#readme";

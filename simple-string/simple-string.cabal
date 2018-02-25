@@ -14,7 +14,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Simple.String
   build-depends:       base >= 4.7 && < 5
-                      , simple
+                      , simple-core
                       , bytestring
 
   default-language:    Haskell2010

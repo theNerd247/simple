@@ -2,7 +2,7 @@
 , transformers
 }:
 mkDerivation {
-  pname = "simple";
+  pname = "simple-core";
   version = "0.1.0.0";
   src = ./.;
   libraryHaskellDepends = [

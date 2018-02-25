@@ -10,7 +10,7 @@ let
               };
             in
              pkgs.haskellPackages.callPackage ./default.nix {
-               simple = pkgs.haskellPackages.callPackage ../simple/default.nix {};
+               simple-core = pkgs.haskellPackages.callPackage ../simple-core/default.nix {};
                snap = snap;
              };
         };
